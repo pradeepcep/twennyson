@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ block.super }}{% endblock title %}
+{% block content %}
+<h3>{% trans "Welcome to Twennyson!" %}</h3>
+<p>
+  {% trans "Here goes a help document." %}
+</p>
+{% endblock content %}

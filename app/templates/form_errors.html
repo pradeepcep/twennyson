@@ -1,0 +1,19 @@
+{% load i18n %}
+{% for error in form.non_field_errors %}
+<div class="alert alert-dismissible fade show my-0 alert-danger" role="alert">
+  {{ error }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="{% trans 'Close' %}">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
+{% for field in form %}
+  {% for error in field.errors %}
+  <div class="alert alert-dismissible fade show my-0 alert-danger" role="alert">
+    <strong>{{ field.label }}:</strong> {{ error }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="{% trans 'Close' %}">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+{% endfor %}

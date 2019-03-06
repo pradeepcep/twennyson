@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Dashboard" %} - {{ block.super }}{% endblock title %}
+{% block content %}
+<h2>{% trans "Twitter Apps" %}</h2>
+{% if twitter_apps %}
+  <table class="table table-bordered">
+    <tr>
+      <th>#</th>
+      <th>{% trans "App Label" %}</th>
+      <th>{% trans "API Key" %}</th>
+      <th>{% trans "Callback URL" %}</th>
+      <th>{% trans "Actions" %}</th>
+    </tr>
+    {% for twitter_app in twitter_apps %}
+    <tr>
+      <td>{{ twitter_app.id }}</td>
+      <td>{{ twitter_app.app_label }}</td>
+      <td>{{ twitter_app.api_key }}</td>
+      <td>{{ twitter_app.callback_url }}</td>
+      <td>
+        <a class="btn btn-success btn-sm" href="{% url 'auth' id=twitter_app.id %}">{% trans "Link an Account" %}</a>
+        <a class="btn btn-danger btn-sm" href="{% url 'delete' id=twitter_app.id %}">{% trans "Delete" %}</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% else %}
+<p>{% trans "No Twitter apps found." %}</p>
+{% endif %}
+
+<hr />
+<h2>{% trans "Twitter Accounts" %}</h2>
+{% if twitter_accounts %}
+  <table class="table table-bordered">
+    <tr>
+      <th>#</th>
+      <th>{% trans "Nickname" %}</th>
+      <th>{% trans "Username" %}</th>
+      <th>{% trans "Twitter App" %}</th>
+      <th>{% trans "Actions" %}</th>
+    </tr>
+    {% for twitter_account in twitter_accounts %}
+    <tr>
+      <td>{{ twitter_account.id }}</td>
+      <td>{{ twitter_account.nickname }}</td>
+      <td>{{ twitter_account.username }}</td>
+      <td>{{ twitter_account.twitter_app.app_label }}</td>
+      <td>
+        <a class="btn btn-success btn-sm" href="{% url 'auth' id=twitter_account.twitter_app.id %}">{% trans "Relink" %}</a>
+        <a class="btn btn-danger btn-sm" href="{% url 'delete-account' id=twitter_account.id %}">{% trans "Delete" %}</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p>{% trans "No Twitter accounts found." %}</p>
+{% endif %}
+
+{% endblock content %}

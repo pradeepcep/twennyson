@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load form_errors %}
+
+{% block title %}{% trans "Register" %} - {{ block.super }}{% endblock title %}
+
+{% block form_errors %}
+{% form_errors register_form %}
+{% endblock form_errors %}
+
+{% block content %}
+<h3>{% trans "Enter your Credentials" %}</h3>
+<p>
+  {% trans "Enter your Twitter API Key and Secret to get started. You can find them under your app's settings at" %}&nbsp;<a
+    href="https://developer.twitter.com/apps/" target="_blank">https://developer.twitter.com/apps/</a>.
+</p>
+<form method="post">
+  {% csrf_token %}
+  <label for="app_label">{{ register_form.app_label.label }}</label>
+  <input class="form-control" type="text" id="app_label" name="app_label"/>
+  <label for="api_key">{{ register_form.api_key.label }}</label>
+  <input class="form-control" type="text" id="api_key" name="api_key"/>
+  <label for="api_key_secret">{{ register_form.api_key_secret.label }}</label>
+  <input class="form-control" type="text" id="api_key_secret" name="api_key_secret"/>
+  <label for="callback_url">{{ register_form.callback_url.label }}</label>
+  <input class="form-control" type="text" id="callback_url" name="callback_url"/>
+  <input class="btn btn-primary mt-3" type="submit" value="{% trans 'Save' %}"/>
+</form>
+{% endblock content %}
